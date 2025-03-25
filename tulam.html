@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Holland Quest - Khám phá đam mê</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Roboto:wght@400&display=swap"
+        rel="stylesheet">
+    <style>
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            /* Căn giữa theo chiều ngang */
+            align-items: center;
+            /* Căn giữa theo chiều dọc */
+            gap: 10px;
+            /* Giảm khoảng cách giữa hai logo từ 20px xuống 10px */
+            margin-bottom: -20px;
+            /* Kéo logo lên gần tiêu đề hơn */
+        }
+
+        .school-logo {
+            object-fit: contain;
+            /* Đảm bảo hình ảnh không bị méo */
+        }
+
+
+
+        /* CSS cho logo Đoàn Thanh Niên */
+        .school-logo-doan {
+            width: 120px;
+            /* Tăng kích thước để cân đối với logo trường */
+            height: 120px;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-y: auto;
+            color: white;
+            background: linear-gradient(45deg, #1a1a1a, #2c3e50, #4b0082, #800080, #ff4500);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            max-width: 900px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        #game-info {
+            display: block;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        #game-info h1 {
+            font-size: 4em;
+            text-shadow: 0 0 20px #fff, 0 0 30px #ff4500, 0 0 40px #ff4500;
+            margin-bottom: 10px;
+            margin-top: 5px;
+            /* Thêm margin-top nhỏ để điều chỉnh khoảng cách */
+            animation: glow 2s infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px #fff, 0 0 20px #ff4500;
+            }
+
+            to {
+                text-shadow: 0 0 25px #fff, 0 0 40px #ff4500, 0 0 50px #ff4500;
+            }
+        }
+
+        #slogan {
+            font-size: 1.3em;
+            margin: 15px 0;
+            color: #ffeb3b;
+            text-shadow: 0 0 5px rgba(255, 235, 59, 0.8);
+        }
+
+        #slogan span {
+            margin: 0 10px;
+            font-size: 1.5em;
+        }
+
+        #instructions {
+            display: none;
+            margin-top: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        #personal-info {
+            display: none;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        #personal-info h2 {
+            font-size: 2.5em;
+            text-shadow: 0 0 10px #fff;
+            margin-bottom: 20px;
+        }
+
+        #personal-info input {
+            display: block;
+            width: 80%;
+            margin: 10px auto;
+            padding: 10px;
+            font-size: 1.1em;
+            border: none;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+        }
+
+        #personal-info input:focus {
+            outline: none;
+            box-shadow: 0 0 10px #ff4500;
+        }
+
+        .question-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .question-table.active {
+            display: table;
+        }
+
+        .question-table th,
+        .question-table td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .question-table th {
+            background: rgba(255, 255, 255, 0.15);
+            font-size: 1.2em;
+        }
+
+        .question-row:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transition: background 0.3s;
+        }
+
+        .icon {
+            font-size: 1.5em;
+            margin-right: 10px;
+            text-shadow: 0 0 10px #ff4500;
+        }
+
+        input[type="radio"] {
+            display: none;
+        }
+
+        label {
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            width: 40px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        label:hover {
+            background: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+        }
+
+        input[type="radio"]:checked+label.yes::after {
+            content: "✔";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.2em;
+            color: #00ff00;
+            text-shadow: 0 0 5px rgba(0, 255, 0, 0.8);
+        }
+
+        input[type="radio"]:checked+label.no::after {
+            content: "✖";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.2em;
+            color: #ff0000;
+            text-shadow: 0 0 5px rgba(255, 0, 0, 0.8);
+        }
+
+        .start-btn,
+        .next-btn,
+        .back-btn,
+        .info-btn,
+        .home-btn,
+        .music-btn {
+            margin: 10px;
+            background: #ff4500;
+            color: white;
+            padding: 10px 20px;
+            font-size: 1.1em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 0 10px #ff4500;
+        }
+
+        .next-btn {
+            position: absolute;
+            right: -10px;
+            bottom: -10px;
+            display: none;
+            /* Ban đầu ẩn, sẽ hiển thị khi cần */
+            margin: 10px;
+            background: #ff4500;
+            color: white;
+            padding: 10px 20px;
+            font-size: 1.1em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 0 10px #ff4500;
+        }
+
+        .back-btn {
+            position: absolute;
+            left: -10px;
+            bottom: -10px;
+            display: none;
+        }
+
+        #personal-info .back-btn {
+            display: block;
+            /* Đảm bảo nút Quay lại luôn hiển thị */
+            position: static;
+            /* Giữ nguyên vị trí tĩnh */
+            margin: 0 10px;
+            /* Căn chỉnh khoảng cách */
+        }
+
+        #personal-info .next-btn {
+            display: none;
+            /* Ban đầu ẩn nút Tiếp tục */
+            position: static;
+            /* Giữ nguyên vị trí tĩnh */
+            margin: 0 10px;
+            /* Căn chỉnh khoảng cách */
+        }
+
+        .music-btn {
+            position: absolute;
+            top: -18px;
+            /* Cùng hàng với info-btn */
+            left: -10px;
+            /* Cách nút "i" khoảng 50px */
+            padding: 8px 12px;
+            /* Đồng nhất với info-btn */
+            font-size: 1em;
+            background: #ff4500;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 0 10px #ff4500;
+            z-index: 10;
+            /* Đảm bảo nút luôn ở trên cùng */
+        }
+
+        .start-btn:hover,
+        .next-btn:hover,
+        .back-btn:hover,
+        .info-btn:hover,
+        .home-btn:hover,
+        .music-btn:hover {
+            background: #ff6347;
+            box-shadow: 0 0 15px #ff6347;
+        }
+
+        .info-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 10px 15px;
+            font-size: 1em;
+            font-style: italic;
+        }
+
+        #result {
+            display: none;
+            text-align: center;
+        }
+
+        #result h2 {
+            font-size: 2em;
+            text-shadow: 0 0 10px #fff;
+        }
+
+        #suggestions {
+            margin-top: 20px;
+            text-align: left;
+            font-size: 1.1em;
+        }
+
+        .character {
+            position: absolute;
+            font-size: 2.5em;
+            z-index: 0;
+            animation: moveAround 10s infinite ease-in-out;
+        }
+
+        @keyframes moveAround {
+            0% {
+                transform: translate(0, 0);
+            }
+
+            25% {
+                transform: translate(100px, 50px);
+            }
+
+            50% {
+                transform: translate(-50px, 100px);
+            }
+
+            75% {
+                transform: translate(-100px, -50px);
+            }
+
+            100% {
+                transform: translate(0, 0);
+            }
+        }
+
+        .select-code-btn {
+            margin: 5px;
+            background: #ff4500;
+            color: white;
+            padding: 8px 15px;
+            font-size: 1em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 0 10px #ff4500;
+        }
+
+        .select-code-btn:hover {
+            background: #ff6347;
+            box-shadow: 0 0 15px #ff6347;
+        }
+
+        #successMessage {
+            display: none;
+            color: #00ff00;
+            text-shadow: 0 0 5px rgba(0, 255, 0, 0.8);
+            margin-top: 10px;
+            font-family: 'Dancing Script', cursive;
+            /* Font viết tay đẹp mắt */
+            font-size: 1.5em;
+            /* Kích thước chữ lớn hơn */
+            font-weight: 700;
+            /* Độ đậm */
+            text-align: center;
+            /* Căn giữa */
+            animation: fadeIn 1s ease-in-out;
+            /* Hiệu ứng xuất hiện */
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        #personal-info .back-btn,
+        #personal-info .next-btn {
+            display: block;
+            height: 40px;
+            line-height: 40px;
+            padding: 0 20px;
+            margin: 0;
+            position: static;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <button class="music-btn" id="musicBtn" onclick="toggleMusic()">Bật nhạc</button> <!-- Đặt ở đây -->
+        <!-- Trang đầu -->
+        <div id="game-info">
+            <!-- Thêm container cho hai logo -->
+            <div class="logo-container">
+
+                <img src="https://upload.wikimedia.org/wikipedia/vi/0/09/Huy_Hi%E1%BB%87u_%C4%90o%C3%A0n.png?20210321041456"
+                    alt="Đoàn Thanh Niên Logo" class="school-logo school-logo-doan">
+            </div>
+            <h1>Holland Quest <span style="font-size: 0.6em;">🌟🔧🎨</span></h1>
+            <div id="slogan">
+                <p><span>🚀</span> "Khám phá bản thân - Định hướng tương lai!" <span>✨</span></p>
+                <p><span>🎯</span> "Tìm nghề nghiệp phù hợp với đam mê của bạn." <span>💡</span></p>
+                <p><span>🌈</span> "Hành trình bắt đầu từ chính bạn!" <span>🐱</span></p>
+            </div>
+            <p>Khám phá sở thích và định hướng nghề nghiệp qua 60 câu hỏi thú vị!<br>Nhấn <i>i</i> để xem thông tin chi
+                tiết !</p>
+            <p style="color: #ffeb3b; text-shadow: 0 0 5px rgba(255, 235, 59, 0.8); margin: 10px 0;">Hãy bật âm thanh để
+                thêm phần vui nhộn! 🎶</p>
+            <div id="instructions">
+                <p>Chào mừng bạn đến với Trắc nghiệm Holland – hành trình khám phá bản thân qua lăng kính nghề nghiệp!
+                    Dựa trên lý thuyết nổi tiếng của nhà tâm lý học John Holland, trò chơi này sẽ giúp bạn tìm hiểu xem
+                    bạn thuộc nhóm tính cách nào trong 6 loại: Thực tế (Realistic), Nghiên cứu (Investigative), Nghệ
+                    thuật (Artistic), Xã hội (Social), Tham vọng (Enterprising), hay Quy củ(Conventional). Chỉ với vài
+                    phút trả lời các câu hỏi thú vị, bạn sẽ khám phá được sở thích, thế mạnh và những lĩnh vực nghề
+                    nghiệp phù hợp nhất với mình. Hãy bắt đầu ngay để mở cánh cửa đến tương lai của bạn!</p>
+                <h3>Cách chơi:</h3>
+                <p>- Trò chơi gồm 10 trang, mỗi trang 6 câu hỏi.<br>
+                    - Chọn "Có" hoặc "Không" cho từng câu bằng cách nhấn vào ô tương ứng.<br>
+                    - Nhấn "Tiếp tục" để sang trang mới, "Quay lại" để xem trang trước.<br>
+                    - Sau trang 10, bạn sẽ nhận được mã Holland và gợi ý nghề nghiệp.<br>
+                    - Nhấn "Quay về trang đầu" hoặc "Trở lại màn hình chính" để chơi lại.</p>
+            </div>
+            <button class="start-btn" onclick="startQuiz()">Bắt đầu</button>
+            <button class="info-btn" id="infoBtn" onclick="toggleInstructions()"><i>i</i></button>
+        </div>
+
+        <!-- Trang thông tin cá nhân -->
+        <div id="personal-info">
+            <h2>Thông tin cá nhân</h2>
+            <input type="text" id="name" placeholder="Họ và tên" required>
+            <input type="text" id="class" placeholder="Lớp" required>
+            <input type="text" id="school" placeholder="Trường" required>
+            <div class="button-container">
+                <button class="back-btn" onclick="backToGameInfo()">Quay lại</button>
+                <button class="next-btn" onclick="startGame()" style="display: none;">Tiếp tục</button>
+            </div>
+        </div>
+        <!-- Trang 1 -->
+        <table class="question-table" id="round1">
+            <thead>
+                <tr>
+                    <th style="width: 60%;">Trắc nghiệm Holland - Câu hỏi (Trang 1/10)</th>
+                    <th style="width: 20%;">Có</th>
+                    <th style="width: 20%;">Không</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="question-row">
+                    <td><span class="icon">🔧</span> Bạn có thích làm việc với máy móc không?</td>
+                    <td><input type="radio" id="r1-yes" name="r1" value="yes" onchange="answer('R', true)"><label
+                            for="r1-yes" class="yes"></label></td>
+                    <td><input type="radio" id="r1-no" name="r1" value="no" onchange="answer('R', false)"><label
+                            for="r1-no" class="no"></label></td>
+                </tr>
+                <tr class="question-row">
+                    <td><span class="icon">🧪</span> Bạn có thích giải bài toán phức tạp không?</td>
+                    <td><input type="radio" id="i1-yes" name="i1" value="yes" onchange="answer('I', true)"><label
+                            for="i1-yes" class="yes"></label></td>
+                    <td><input type="radio" id="i1-no" name="i1" value="no" onchange="answer('I', false)"><label
+                            for="i1-no" class="no"></label></td>
+                </tr>
+                <tr class="question-row">
+                    <td><span class="icon">✏️</span> Bạn có thích vẽ tranh hoặc thiết kế không?</td>
+                    <td><input type="radio" id="a1-yes" name="a1" value="yes" onchange="answer('A', true)"><label
+                            for="a1-yes" class="yes"></label></td>
+                    <td><input type="radio" id="a1-no" name="a1" value="no" onchange="answer('A', false)"><label
+                            for="a1-no" class="no"></label></td>
+                </tr>
+                <tr class="question-row">
+                    <td><span class="icon">🤝</span> Bạn có thích giúp đỡ người khác không?</td>
+                    <td><input type="radio" id="s1-yes" name="s1" value="yes" onchange="answer('S', true)"><label
+                            for="s1-yes" class="yes"></label></td>
+                    <td><input type="radio" id="s1-no" name="s1" value="no" onchange="answer('S', false)"><label
+                            for="s1-no" class="no"></label></td>
+                </tr>
+                <tr class="question-row">
+                    <td><span class="icon">🎤</span> Bạn có thích lãnh đạo một nhóm không?</td>
+                    <td><input type="radio" id="e1-yes" name="e1" value="yes" onchange="answer('E', true)"><label
+                            for="e1-yes" class="yes"></label></td>
+                    <td><input type="radio" id="e1-no" name="e1" value="no" onchange="answer('E', false)"><label
+                            for="e1-no" class="no"></label></td>
+                </tr>
+                <tr class="question-row">
+                    <td><span class="icon">📈</span> Bạn có thích làm việc với dữ liệu không?</td>
+                    <td><input type="radio" id="c1-yes" name="c1" value="yes" onchange="answer('C', true)"><label
+                            for="c1-yes" class="yes"></label></td>
+                    <td><input type="radio" id="c1-no" name="c1" value="no" onchange="answer('C', false)"><label
+                            for="c1-no" class="no"></label></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Trang 2 -->
+        <table class="question-table" id="round2">
+            <thead>
+                <tr>
+                    <th style="width: 60%;">Trắc nghiệm Holland - Câu hỏi (Trang 2/10)</th>
+                    <th style="width: 20%;">Có</th>
+                    <th style="width: 20%;">Không</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="question-row">
+                    <td><span class="icon">🛠️</span> Bạn có hứng thú sửa chữa đồ vật không?</td>
+                    <td><input type="radio" id="r2-yes" name="r2" value="yes" onchange="answer('R', true)"><label
+                            for="r2-yes" class="yes"></label></td>
+                    <td><input type="radio" id="r2-no" name="r2" value="no" onchange="answer('R', false)"><label
+                            for="r2-no" class="no"></label></td>
+                </tr>
+                <tr class="question-row">
+                    <td><span class="icon">🔍</span> Bạn có thích nghiên cứu khoa học không?</td>
+                    <td><input type="radio" id="i2-yes" name="i2" value="yes" onchange="answer('I', true)"><label
+                            for="i2-yes" class="yes"></label></td>
+                    <td><input type="radio" id="i2-no" name="i2" value="no" onchange="answer('I', false)"><label
+                            for="i2-no" class="no"></label></td>
+                </tr>
+                <tr class="question-row">
+                    <td><span class="icon">📝</span> Bạn có thích viết truyện hoặc thơ không?</td>
+                    <td><input type="radio" id="a2-yes" name="a2" value="yes" onchange="answer('A', true)"><label
+                            for="a2-yes" class="yes"></label></td>
+                    <td><input type="radio" id="a2-no" name="a2" value="no" onchange="answer('A', false)"><label
+                            for="a2-no" class="no"></label></td>
+                </tr>
+                <tr class="question-row">
+                    <td><span class="icon">👩‍🏫</span> Bạn có hứng thú dạy học không?</td>
+                    <td><input type="radio" id="s2-yes" name="s2" value="yes" onchange="answer('S', true)"><label
+                            for="s2-yes" class="yes"></label></td>
+                    <td><input type="radio" id="s2-no" name="s2" value="no" onchange="answer('S', false)"><label
+                            for="s2-no" class="no"></label></td>
+                </tr>
+                <tr class="question-row">
+                    <td><span class="icon">💰</span> Bạn có hứng thú bán hàng không?</td>
+                    <td><input type="radio" id="e2-yes" name="e2" value="yes" onchange="answer('E', true)"><label
+                            for="e2-yes" class="yes"></label></td>
+                    <td><input type="radio" id="e2-no" name="e2" value="no" onchange="answer('E', false)"><label
+                            for="e2-no" class="no"></label></td>
+                </tr>
+                <tr class="question-row">
+                    <td><span class="icon">📋</span> Bạn có thích tổ chức giấy tờ không?</td>
+                    <td><input type="radio" id="c2-yes" name="c2" value="yes" onchange="answer('C', true)"><label
+                            for="c2-yes" class="yes"></label></td>
+                    <td><input type="radio" id="c2-no" name="c2" value="no" onchange="answer('C', false)"><label
+                            for="c2-no" class="no"></label></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Trang 3 -->
+        <table class="question-table" id="round3">
+            <thead>
+                <tr>
+                    <th style="width: 60%;">Trắc nghiệm Holland - Câu hỏi (Trang 3/10)</th>
+                    <th style="width: 20%;">Có</th>
+                    <th style="width: 20%;">Không</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="question-row">
+                    <td><span class="icon">🏗️</span> Bạn có thích xây dựng bằng tay không?</td>
+                    <td><input type="radio" id="r3-yes" name="r3" value="yes" onchange="answer('R', true)"><label
+                            for="r3-yes" class="yes"></label></td>
+                    <td><input type="radio" id="r3-no" name="r3" value="no" onchange="answer('R', false)"><label
+                            for="r3-no" class="no"></label></td>
+                </tr>
+                <tr class="question-row">
+                    <td><span class="icon">📚</span> Bạn có thích đọc sách tìm hiểu không?</td>
+                    <td><input type="radio" id="i3-yes" name="i3" value="yes" onchange="answer('I', true)"><label
+                            for="i3-yes" class="yes"></label></td>
+                    <td><input type="radio" id="i3-no" name="i3" value="no" onchange="answer('I', false)"><label
+                            for="i3-no" class="no"></label></td>
+                </tr>
+                <tr class="question-row">
+                    <td><span class="icon">🎸</span> Bạn có thích chơi nhạc cụ không?</td>
+                    <td><input type="radio" id="a3-yes" name="a3" value="yes" onchange="answer('A', true)"><label
+                            for="a3-yes" class="yes"></label></td>
+                    <td><input type="radio" id="a3-no" name="a3" value="no" onchange="answer('A', false)"><label
+                            for="a3-no" class="no"></label></td>
+                </tr>
+                <tr class="question-row">
+                    <td><span class="icon">💬</span> Bạn có thích giao tiếp không?</td>
+                    <td><input type="radio" id="s3-yes" name="s3" value="yes" onchange="answer('S', true)"><label
+                            for="s3-yes" class="yes"></label></td>
+                    <td><input type="radio" id="s3-no" name="s3" value="no" onchange="answer('S', false)"><label
+                            for="s3-no" class="no"></label></td>
+                </tr>
+                <tr class="question-row">
+                    <td><span class="icon">🚀</span> Bạn có muốn khởi nghiệp không?</td>
+                    <td><input type="radio" id="e3-yes" name="e3" value="yes" onchange="answer('E', true)"><label
+                            for="e3-yes" class="yes"></label></td>
+                    <td><input type="radio" id="e3-no" name="e3" value="no" onchange="answer('E', false)"><label
+                            for="e3-no" class="no"></label></td>
+                </tr>
+                <tr class="question-row">
+                    <td><span class="icon">⚙️</span> Bạn có thích làm việc quy trình không?</td>
+                    <td><input type="radio" id="c3-yes" name="c3" value="yes" onchange="answer('C', true)"><label
+                            for="c3-yes" class="yes"></label></td>
+                    <td><input type="radio" id="c3-no" name="c3" value="no" onchange="answer('C', false)"><label
+                            for="c3-no" class="no"></label></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Trang 4 -->
+        <table class="question-table" id="round4">
+            <thead>
+                <tr>
+                    <th style="width: 60%;">Trắc nghiệm Holland - Câu hỏi (Trang 4/10)</th>
+                    <th style="width: 20%;">Có</th>
+                    <th style="width: 20%;">Không</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="question-row">
+                    <td><span class="icon">🌳</span> Bạn có thích làm việc ngoài trời không?</td>
+                    <td><input type="radio" id="r4-yes" name="r4" value="yes" onchange="answer('R', true)"><label
+                            for="r4-yes" class="yes"></label></td>
+                    <td><input type="radio" id="r4-no" name="r4" value="no" onchange="answer('R', false)"><label
+                            for="r4-no" class="no"></label></td>
+                </tr>
+                <tr class="question-row">
+                    <td><span class="icon">📊</span> Bạn có muốn phân tích dữ liệu không?</td>
+                    <td><input type="radio" id="i4-yes" name="i4" value="yes" onchange="answer('I', true)"><label
+                            for="i4-yes" class="yes"></label></td>
+                    <td><input type="radio" id="i4-no" name="i4" value="no" onchange="answer('I', false)"><label
+                            for="i4-no" class="no"></label></td>
+                </tr>
+                <tr class="question-row">
+                    <td><span class="icon">🎭</span> Bạn có muốn tham gia diễn xuất không?</td>
+                    <td><input type="radio" id="a4-yes" name="a4" value="yes" onchange="answer('A', true)"><label
+                            for="a4-yes" class="yes"></label></td>
+                    <td><input type="radio" id="a4-no" name="a4" value="no" onchange="answer('A', false)"><label
+                            for="a4-no" class="no"></label></td>
+                </tr>
+                <tr class="question-row">
+                    <td><span class="icon">🩺</span> Bạn có muốn hỗ trợ người khác không?</td>
+                    <td><input type="radio" id="s4-yes" name="s4" value="yes" onchange="answer('S', true)"><label
+                            for="s4-yes" class="yes"></label></td>
+                    <td><input type="radio" id="s4-no" name="s4" value="no" onchange="answer('S', false)"><label
+                            for="s4-no" class="no"></label></td>
+                </tr>
+                <tr class="question-row">
+                    <td><span class="icon">🤝</span> Bạn có thích đàm phán không?</td>
+                    <td><input type="radio" id="e4-yes" name="e4" value="yes" onchange="answer('E', true)"><label
+                            for="e4-yes" class="yes"></label></td>
+                    <td><input type="radio" id="e4-no" name="e4" value="no" onchange="answer('E', false)"><label
+                            for="e4-no" class="no"></label></td>
+                </tr>
+                <tr class="question-row">
+                    <td><span class="icon">📅</span> Bạn có thích lập kế hoạch chi tiết không?</td>
+                    <td><input type="radio" id="c4-yes" name="c4" value="yes" onchange="answer('C', true)"><label
+                            for="c4-yes" class="yes"></label></td>
+                    <td><input type="radio" id="c4-no" name="c4" value="no" onchange="answer('C', false)"><label
+                            for="c4-no" class="no"></label></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Trang 5 -->
+        <table class="question-table" id="round5">
+            <thead>
+                <tr>
+                    <th style="width: 60%;">Trắc nghiệm Holland - Câu hỏi (Trang 5/10)</th>
+                    <th style="width: 20%;">Có</th>
+                    <th style="width: 20%;">Không</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="question-row">
+                    <td><span class="icon">🌱</span> Bạn có thích chăm sóc cây cối không?</td>
+                    <td><input type="radio" id="r5-yes" name="r5" value="yes" onchange="answer('R', true)"><label
+                            for="r5-yes" class="yes"></label></td>
+                    <td><input type="radio" id="r5-no" name="r5" value="no" onchange="answer('R', false)"><label
+                            for="r5-no" class="no"></label></td>
+                </tr>
+                <tr class="question-row">
+                    <td><span class="icon">💻</span> Bạn có hứng thú lập trình không?</td>
+                    <td><input type="radio" id="i5-yes" name="i5" value="yes" onchange="answer('I', true)"><label
+                            for="i5-yes" class="yes"></label></td>
+                    <td><input type="radio" id="i5-no" name="i5" value="no" onchange="answer('I', false)"><label
+                            for="i5-no" class="no"></label></td>
+                </tr>
+                <tr class="question-row">
+                    <td><span class="icon">🖌️</span> Bạn có thích tạo sản phẩm thủ công không?</td>
+                    <td><input type="radio" id="a5-yes" name="a5" value="yes" onchange="answer('A', true)"><label
+                            for="a5-yes" class="yes"></label></td>
+                    <td><input type="radio" id="a5-no" name="a5" value="no" onchange="answer('A', false)"><label
+                            for="a5-no" class="no"></label></td>
+                </tr>
+                <tr class="question-row">
+                    <td><span class="icon">🏘️</span> Bạn có thích hoạt động cộng đồng không?</td>
+                    <td><input type="radio" id="s5-yes" name="s5" value="yes" onchange="answer('S', true)"><label
+                            for="s5-yes" class="yes"></label></td>
+                    <td><input type="radio" id="s5-no" name="s5" value="no" onchange="answer('S', false)"><label
+                            for="s5-no" class="no"></label></td>
+                </tr>
+                <tr class="question-row">
+                    <td><span class="icon">📅</span> Bạn có thích lập kế hoạch lớn không?</td>
+                    <td><input type="radio" id="e5-yes" name="e5" value="yes" onchange="answer('E', true)"><label
+                            for="e5-yes" class="yes"></label></td>
+                    <td><input type="radio" id="e5-no" name="e5" value="no" onchange="answer('E', false)"><label
+                            for="e5-no" class="no"></label></td>
+                </tr>
+                <tr class="question-row">
+                    <td><span class="icon">⌨️</span> Bạn có thích làm việc nhập liệu không?</td>
+                    <td><input type="radio" id="c5-yes" name="c5" value="yes" onchange="answer('C', true)"><label
+                            for="c5-yes" class="yes"></label></td>
+                    <td><input type="radio" id="c5-no" name="c5" value="no" onchange="answer('C', false)"><label
+                            for="c5-no" class="no"></label></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Trang 6 -->
+        <table class="question-table" id="round6">
+            <thead>
+                <tr>
+                    <th style="width: 60%;">Trắc nghiệm Holland - Câu hỏi (Trang 6/10)</th>
+                    <th style="width: 20%;">Có</th>
+                    <th style="width: 20%;">Không</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="question-row">
+                    <td><span class="icon">🚜</span> Bạn có thích vận hành máy móc lớn không?</td>
+                    <td><input type="radio" id="r6-yes" name="r6" value="yes" onchange="answer('R', true)"><label
+                            for="r6-yes" class="yes"></label></td>
+                    <td><input type="radio" id="r6-no" name="r6" value="no" onchange="answer('R', false)"><label
+                            for="r6-no" class="no"></label></td>
+                </tr>
+                <tr class="question-row">
+                    <td><span class="icon">🧬</span> Bạn có thích thực hiện thí nghiệm không?</td>
+                    <td><input type="radio" id="i6-yes" name="i6" value="yes" onchange="answer('I', true)"><label
+                            for="i6-yes" class="yes"></label></td>
+                    <td><input type="radio" id="i6-no" name="i6" value="no" onchange="answer('I', false)"><label
+                            for="i6-no" class="no"></label></td>
+                </tr>
+                <tr class="question-row">
+                    <td><span class="icon">💡</span> Bạn có thích tự do thể hiện ý tưởng không?</td>
+                    <td><input type="radio" id="a6-yes" name="a6" value="yes" onchange="answer('A', true)"><label
+                            for="a6-yes" class="yes"></label></td>
+                    <td><input type="radio" id="a6-no" name="a6" value="no" onchange="answer('A', false)"><label
+                            for="a6-no" class="no"></label></td>
+                </tr>
+                <tr class="question-row">
+                    <td><span class="icon">🎉</span> Bạn có thích tổ chức sự kiện không?</td>
+                    <td><input type="radio" id="s6-yes" name="s6" value="yes" onchange="answer('S', true)"><label
+                            for="s6-yes" class="yes"></label></td>
+                    <td><input type="radio" id="s6-no" name="s6" value="no" onchange="answer('S', false)"><label
+                            for="s6-no" class="no"></label></td>
+                </tr>
+                <tr class="question-row">
+                    <td><span class="icon">🏢</span> Bạn có muốn làm việc kinh doanh không?</td>
+                    <td><input type="radio" id="e6-yes" name="e6" value="yes" onchange="answer('E', true)"><label
+                            for="e6-yes" class="yes"></label></td>
+                    <td><input type="radio" id="e6-no" name="e6" value="no" onchange="answer('E', false)"><label
+                            for="e6-no" class="no"></label></td>
+                </tr>
+                <tr class="question-row">
+                    <td><span class="icon">💸</span> Bạn có thích quản lý tài chính không?</td>
+                    <td><input type="radio" id="c6-yes" name="c6" value="yes" onchange="answer('C', true)"><label
+                            for="c6-yes" class="yes"></label></td>
+                    <td><input type="radio" id="c6-no" name="c6" value="no" onchange="answer('C', false)"><label
+                            for="c6-no" class="no"></label></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Trang 7 -->
+        <table class="question-table" id="round7">
+            <thead>
+                <tr>
+                    <th style="width: 60%;">Trắc nghiệm Holland - Câu hỏi (Trang 7/10)</th>
+                    <th style="width: 20%;">Có</th>
+                    <th style="width: 20%;">Không</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="question-row">
+                    <td><span class="icon">🏋️</span> Bạn có thích hoạt động thể chất không?</td>
+                    <td><input type="radio" id="r7-yes" name="r7" value="yes" onchange="answer('R', true)"><label
+                            for="r7-yes" class="yes"></label></td>
+                    <td><input type="radio" id="r7-no" name="r7" value="no" onchange="answer('R', false)"><label
+                            for="r7-no" class="no"></label></td>
+                </tr>
+                <tr class="question-row">
+                    <td><span class="icon">🧫</span> Bạn có muốn làm việc phòng thí nghiệm không?</td>
+                    <td><input type="radio" id="i7-yes" name="i7" value="yes" onchange="answer('I', true)"><label
+                            for="i7-yes" class="yes"></label></td>
+                    <td><input type="radio" id="i7-no" name="i7" value="no" onchange="answer('I', false)"><label
+                            for="i7-no" class="no"></label></td>
+                </tr>
+                <tr class="question-row">
+                    <td><span class="icon">🏠</span> Bạn có thích thiết kế nội thất không?</td>
+                    <td><input type="radio" id="a7-yes" name="a7" value="yes" onchange="answer('A', true)"><label
+                            for="a7-yes" class="yes"></label></td>
+                    <td><input type="radio" id="a7-no" name="a7" value="no" onchange="answer('A', false)"><label
+                            for="a7-no" class="no"></label></td>
+                </tr>
+                <tr class="question-row">
+                    <td><span class="icon">🩺</span> Bạn có thích chăm sóc sức khỏe không?</td>
+                    <td><input type="radio" id="s7-yes" name="s7" value="yes" onchange="answer('S', true)"><label
+                            for="s7-yes" class="yes"></label></td>
+                    <td><input type="radio" id="s7-no" name="s7" value="no" onchange="answer('S', false)"><label
+                            for="s7-no" class="no"></label></td>
+                </tr>
+                <tr class="question-row">
+                    <td><span class="icon">🏆</span> Bạn có thích cạnh tranh thành công không?</td>
+                    <td><input type="radio" id="e7-yes" name="e7" value="yes" onchange="answer('E', true)"><label
+                            for="e7-yes" class="yes"></label></td>
+                    <td><input type="radio" id="e7-no" name="e7" value="no" onchange="answer('E', false)"><label
+                            for="e7-no" class="no"></label></td>
+                </tr>
+                <tr class="question-row">
+                    <td><span class="icon">✅</span> Bạn có thích kiểm tra công việc không?</td>
+                    <td><input type="radio" id="c7-yes" name="c7" value="yes" onchange="answer('C', true)"><label
+                            for="c7-yes" class="yes"></label></td>
+                    <td><input type="radio" id="c7-no" name="c7" value="no" onchange="answer('C', false)"><label
+                            for="c7-no" class="no"></label></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Trang 8 -->
+        <table class="question-table" id="round8">
+            <thead>
+                <tr>
+                    <th style="width: 60%;">Trắc nghiệm Holland - Câu hỏi (Trang 8/10)</th>
+                    <th style="width: 20%;">Có</th>
+                    <th style="width: 20%;">Không</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="question-row">
+                    <td><span class="icon">🔨</span> Bạn có muốn học sử dụng công cụ không?</td>
+                    <td><input type="radio" id="r8-yes" name="r8" value="yes" onchange="answer('R', true)"><label
+                            for="r8-yes" class="yes"></label></td>
+                    <td><input type="radio" id="r8-no" name="r8" value="no" onchange="answer('R', false)"><label
+                            for="r8-no" class="no"></label></td>
+                </tr>
+                <tr class="question-row">
+                    <td><span class="icon">🌍</span> Bạn có thích khám phá tự nhiên không?</td>
+                    <td><input type="radio" id="i8-yes" name="i8" value="yes" onchange="answer('I', true)"><label
+                            for="i8-yes" class="yes"></label></td>
+                    <td><input type="radio" id="i8-no" name="i8" value="no" onchange="answer('I', false)"><label
+                            for="i8-no" class="no"></label></td>
+                </tr>
+                <tr class="question-row">
+                    <td><span class="icon">🎨</span> Bạn có thích môi trường sáng tạo không?</td>
+                    <td><input type="radio" id="a8-yes" name="a8" value="yes" onchange="answer('A', true)"><label
+                            for="a8-yes" class="yes"></label></td>
+                    <td><input type="radio" id="a8-no" name="a8" value="no" changeround="answer('A', false)"><label
+                            for="a8-no" class="no"></label></td>
+                </tr>
+                <tr class="question-row">
+                    <td><span class="icon">👂</span> Bạn có thích lắng nghe người khác không?</td>
+                    <td><input type="radio" id="s8-yes" name="s8" value="yes" onchange="answer('S', true)"><label
+                            for="s8-yes" class="yes"></label></td>
+                    <td><input type="radio" id="s8-no" name="s8" value="no" onchange="answer('S', false)"><label
+                            for="s8-no" class="no"></label></td>
+                </tr>
+                <tr class="question-row">
+                    <td><span class="icon">👑</span> Bạn có muốn có quyền lực không?</td>
+                    <td><input type="radio" id="e8-yes" name="e8" value="yes" onchange="answer('E', true)"><label
+                            for="e8-yes" class="yes"></label></td>
+                    <td><input type="radio" id="e8-no" name="e8" value="no" onchange="answer('E', false)"><label
+                            for="e8-no" class="no"></label></td>
+                </tr>
+                <tr class="question-row">
+                    <td><span class="icon">🏢</span> Bạn có thích làm việc văn phòng không?</td>
+                    <td><input type="radio" id="c8-yes" name="c8" value="yes" onchange="answer('C', true)"><label
+                            for="c8-yes" class="yes"></label></td>
+                    <td><input type="radio" id="c8-no" name="c8" value="no" onchange="answer('C', false)"><label
+                            for="c8-no" class="no"></label></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Trang 9 -->
+        <table class="question-table" id="round9">
+            <thead>
+                <tr>
+                    <th style="width: 60%;">Trắc nghiệm Holland - Câu hỏi (Trang 9/10)</th>
+                    <th style="width: 20%;">Có</th>
+                    <th style="width: 20%;">Không</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="question-row">
+                    <td><span class="icon">🛠️</span> Bạn có thích tháo lắp đồ vật không?</td>
+                    <td><input type="radio" id="r9-yes" name="r9" value="yes" onchange="answer('R', true)"><label
+                            for="r9-yes" class="yes"></label></td>
+                    <td><input type="radio" id="r9-no" name="r9" value="no" onchange="answer('R', false)"><label
+                            for="r9-no" class="no"></label></td>
+                </tr>
+                <tr class="question-row">
+                    <td><span class="icon">🕵️</span> Bạn có hứng thú điều tra không?</td>
+                    <td><input type="radio" id="i9-yes" name="i9" value="yes" onchange="answer('I', true)"><label
+                            for="i9-yes" class="yes"></label></td>
+                    <td><input type="radio" id="i9-no" name="i9" value="no" onchange="answer('I', false)"><label
+                            for="i9-no" class="no"></label></td>
+                </tr>
+                <tr class="question-row">
+                    <td><span class="icon">🎥</span> Bạn có muốn sáng tạo nội dung không?</td>
+                    <td><input type="radio" id="a9-yes" name="a9" value="yes" onchange="answer('A', true)"><label
+                            for="a9-yes" class="yes"></label></td>
+                    <td><input type="radio" id="a9-no" name="a9" value="no" onchange="answer('A', false)"><label
+                            for="a9-no" class="no"></label></td>
+                </tr>
+                <tr class="question-row">
+                    <td><span class="icon">🧠</span> Bạn có thích tư vấn tâm lý không?</td>
+                    <td><input type="radio" id="s9-yes" name="s9" value="yes" onchange="answer('S', true)"><label
+                            for="s9-yes" class="yes"></label></td>
+                    <td><input type="radio" id="s9-no" name="s9" value="no" onchange="answer('S', false)"><label
+                            for="s9-no" class="no"></label></td>
+                </tr>
+                <tr class="question-row">
+                    <td><span class="icon">💼</span> Bạn có thích quản lý tài chính nhóm không?</td>
+                    <td><input type="radio" id="e9-yes" name="e9" value="yes" onchange="answer('E', true)"><label
+                            for="e9-yes" class="yes"></label></td>
+                    <td><input type="radio" id="e9-no" name="e9" value="no" onchange="answer('E', false)"><label
+                            for="e9-no" class="no"></label></td>
+                </tr>
+                <tr class="question-row">
+                    <td><span class="icon">📁</span> Bạn có thích làm việc với hồ sơ không?</td>
+                    <td><input type="radio" id="c9-yes" name="c9" value="yes" onchange="answer('C', true)"><label
+                            for="c9-yes" class="yes"></label></td>
+                    <td><input type="radio" id="c9-no" name="c9" value="no" onchange="answer('C', false)"><label
+                            for="c9-no" class="no"></label></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Trang 10 -->
+        <table class="question-table" id="round10">
+            <thead>
+                <tr>
+                    <th style="width: 60%;">Trắc nghiệm Holland - Câu hỏi (Trang 10/10)</th>
+                    <th style="width: 20%;">Có</th>
+                    <th style="width: 20%;">Không</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="question-row">
+                    <td><span class="icon">🏠</span> Bạn có hứng thú xây dựng không?</td>
+                    <td><input type="radio" id="r10-yes" name="r10" value="yes" onchange="answer('R', true)"><label
+                            for="r10-yes" class="yes"></label></td>
+                    <td><input type="radio" id="r10-no" name="r10" value="no" onchange="answer('R', false)"><label
+                            for="r10-no" class="no"></label></td>
+                </tr>
+                <tr class="question-row">
+                    <td><span class="icon">❓</span> Bạn có thích đặt câu hỏi sâu không?</td>
+                    <td><input type="radio" id="i10-yes" name="i10" value="yes" onchange="answer('I', true)"><label
+                            for="i10-yes" class="yes"></label></td>
+                    <td><input type="radio" id="i10-no" name="i10" value="no" onchange="answer('I', false)"><label
+                            for="i10-no" class="no"></label></td>
+                </tr>
+                <tr class="question-row">
+                    <td><span class="icon">🎨</span> Bạn có thích nghệ thuật cộng đồng không?</td>
+                    <td><input type="radio" id="a10-yes" name="a10" value="yes" onchange="answer('A', true)"><label
+                            for="a10-yes" class="yes"></label></td>
+                    <td><input type="radio" id="a10-no" name="a10" value="no" onchange="answer('A', false)"><label
+                            for="a10-no" class="no"></label></td>
+                </tr>
+                <tr class="question-row">
+                    <td><span class="icon">👶</span> Bạn có thích làm việc với trẻ em không?</td>
+                    <td><input type="radio" id="s10-yes" name="s10" value="yes" onchange="answer('S', true)"><label
+                            for="s10-yes" class="yes"></label></td>
+                    <td><input type="radio" id="s10-no" name="s10" value="no" onchange="answer('S', false)"><label
+                            for="s10-no" class="no"></label></td>
+                </tr>
+                <tr class="question-row">
+                    <td><span class="icon">📣</span> Bạn có thích quảng bá sản phẩm không?</td>
+                    <td><input type="radio" id="e10-yes" name="e10" value="yes" onchange="answer('E', true)"><label
+                            for="e10-yes" class="yes"></label></td>
+                    <td><input type="radio" id="e10-no" name="e10" value="no" onchange="answer('E', false)"><label
+                            for="e10-no" class="no"></label></td>
+                </tr>
+                <tr class="question-row">
+                    <td><span class="icon">✔️</span> Bạn có thích đảm bảo quy trình không?</td>
+                    <td><input type="radio" id="c10-yes" name="c10" value="yes" onchange="answer('C', true)"><label
+                            for="c10-yes" class="yes"></label></td>
+                    <td><input type="radio" id="c10-no" name="c10" value="no" onchange="answer('C', false)"><label
+                            for="c10-no" class="no"></label></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <button class="back-btn" id="backBtn" onclick="prevRound()">Quay lại</button>
+        <button class="next-btn" id="nextBtn" onclick="nextRound()">Tiếp tục</button>
+        <div id="result">
+            <h2>Mã Holland của bạn: <span id="hollandCode"></span></h2>
+            <p id="description"></p>
+            <div id="code-options"></div>
+            <div id="suggestions"></div>
+            <button class="back-btn" onclick="backToStart()" style="position: static; margin-right: 20px;">Quay về trang
+                đầu</button>
+            <button class="home-btn" onclick="backToHome()">Trở lại màn hình chính</button>
+            <button class="back-btn" id="backToOptionsBtn" onclick="showResult()"
+                style="position: static; margin-left: 20px; display: none;">Quay lại chọn mã</button>
+        </div>
+
+        <!-- Phần feedback tách riêng -->
+        <div id="feedbackSection" style="display: none; margin: 20px 0;">
+            <p>Bạn thấy các nghề nghiệp phù hợp với bản thân không?</p>
+            <input type="text" id="feedback" placeholder="Nhập ý kiến của bạn..."
+                style="width: 80%; padding: 10px; margin: 10px auto; display: block; border-radius: 5px; border: none; background: rgba(255, 255, 255, 0.9); color: #333;">
+            <button class="select-code-btn" onclick="submitFeedback()">Gửi ý kiến</button>
+            <p id="successMessage"
+                style="display: none; color: #00ff00; text-shadow: 0 0 5px rgba(0, 255, 0, 0.8); margin-top: 10px;"></p>
+        </div>
+
+        <!-- Nút điều khiển âm nhạc -->
+
+
+        <!-- Thêm âm nhạc nền -->
+        <audio id="backgroundMusic" loop>
+            <source src="https://www.bensound.com/bensound-music/bensound-ukulele.mp3" type="audio/mp3">
+            Trình duyệt của bạn không hỗ trợ âm thanh.
+        </audio>
+<link rel="stylesheet" href="./js/script.js">
+        
+</body>
+
+</html>
